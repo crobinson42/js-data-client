@@ -19430,51 +19430,69 @@ var adapter = new _jsDataHttp.HttpAdapter({
 
 store.registerAdapter("http", adapter, { default: true });
 
-store.defineMapper("user");
+window.user = store.defineMapper("user", {
+  schema: {
+    properties: {
+      posts: "array"
+    }
+  }
+});
+window.posts = store.defineMapper("post", {});
+window.organization = store.defineMapper("organization", {});
+window.region = store.defineMapper("region");
+
+window.store = store;
 
 // create
-store.create("user", { name: "John" }).then(function (user) {
-  console.log("user.create", user);
-  return user.id;
-}).catch(function (err) {
-  // todo: how to handle both client and back-end validation messages the same?
-  console.log('err', err.response);
-  console.log("err", err.message);
-}).then(function (createdId) {
-  // find
-  return store.find('user', createdId).then(function (user) {
-    console.log("user.find", user);
+function runTest() {
+  store.create("user", { name: "John" }).then(function (user) {
+    console.log("user.create", user);
     return user.id;
   }).catch(function (err) {
+    // todo: how to handle both client and back-end validation messages the same?
+    console.log("err", err.response);
     console.log("err", err.message);
-  });
-}).then(function (findId) {
-  // findAll
-  return store.findAll('user', { name: 'John' }).then(function (user) {
-    console.log("user.findAll", user);
-    return findId;
-  }).catch(function (err) {
-    console.log("err", err.message);
-  });
-}).then(function (findId) {
-  // update
-  return store.update('user', findId, { name: 'john-updated' + new Date().toISOString() }).then(function (user) {
-    console.log("user.update", user);
-    return user.id;
-  }).catch(function (err) {
-    console.log("err", err.message);
-  });
-}).then(function (updateId) {
-  window.destroy = function (id) {
-    store.destroy('user', id).then(function (res) {
-      return console.log('res', res);
+  }).then(function (createdId) {
+    // find
+    return store.find("user", createdId).then(function (user) {
+      console.log("user.find", user);
+      return user.id;
     }).catch(function (err) {
-      return console.log('err', err);
+      console.log("err", err.message);
     });
-  };
-}).catch(function (err) {
-  console.log("\n        \n        ERROR final catch\n    \n    ", err);
-});
+  }).then(function (findId) {
+    // findAll
+    return store.findAll("user", { name: "John" }).then(function (user) {
+      console.log("user.findAll", user);
+      return findId;
+    }).catch(function (err) {
+      console.log("err", err.message);
+    });
+  }).then(function (findId) {
+    // update
+    return store.update("user", findId, {
+      name: "john-updated" + new Date().toISOString(),
+      organization: "5ba71c35af8ad44e6fd7478a"
+    }).then(function (user) {
+      console.log("user.update", user);
+      return user.id;
+    }).catch(function (err) {
+      console.log("err", err.message);
+    });
+  }).then(function (updateId) {
+    window.destroy = function (id) {
+      store.destroy("user", id).then(function (res) {
+        return console.log("res", res);
+      }).catch(function (err) {
+        return console.log("err", err);
+      });
+    };
+  }).catch(function (err) {
+    console.log("\n        \n        ERROR final catch\n    \n    ", err);
+  });
+}
+
+window.runTest = runTest;
 },{"js-data":"node_modules/js-data/dist/js-data.js","js-data-http":"node_modules/js-data-http/dist/js-data-http.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
@@ -19504,7 +19522,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = '' || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + '65212' + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + '57340' + '/');
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
 
