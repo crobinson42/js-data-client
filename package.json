@@ -4,9 +4,25 @@
   "description": "",
   "main": "index.html",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "parcel index.html -p 1234"
   },
-  "keywords": [],
+  "keywords": [
+    "js-data",
+    "development",
+    "testing",
+    "sandbox",
+    "code",
+    "playground"
+  ],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "bson": "^3.0.2",
+    "js-data": "^3.0.3",
+    "js-data-http": "^3.0.0",
+    "mongodb": "^3.1.6",
+    "open-browser": "^3.6.0",
+    "parcel": "^1.9.7",
+    "parcel-bundler": "^1.9.7"
+  }
 }
