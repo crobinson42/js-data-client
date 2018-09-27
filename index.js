@@ -12,14 +12,26 @@ const adapter = new HttpAdapter({
 store.registerAdapter("http", adapter, { default: true });
 
 window.user = store.defineMapper("user", {
-  schema: {
-    properties: {
-      posts: "array"
+  relations: {
+    belongsTo: {
+      organization: {
+        foreignKey: "organizationId",
+        localField: "organization"
+      }
     }
   }
 });
 window.posts = store.defineMapper("post", {});
-window.organization = store.defineMapper("organization", {});
+window.organization = store.defineMapper("organization", {
+  relations: {
+    hasMany: {
+      user: {
+        foreignKey: "organizationId",
+        localField: "users"
+      }
+    }
+  }
+});
 window.region = store.defineMapper("region");
 
 window.store = store;
