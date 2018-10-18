@@ -18,7 +18,7 @@
   "license": "ISC",
   "dependencies": {
     "bson": "^3.0.2",
-    "js-data": "^3.0.3",
+    "js-data": "^3.0.4",
     "js-data-http": "^3.0.0",
     "mongodb": "^3.1.6",
     "open-browser": "^3.6.0",

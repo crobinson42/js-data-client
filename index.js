@@ -1,6 +1,11 @@
 import { DataStore } from "js-data";
+// import { DataStore } from "./js-data/src/";
 import { HttpAdapter } from "js-data-http";
 // import {HttpAdapter} from '../../js-data-http/src/index'
+// import { Definitions, Store } from '@therms/models';
+
+// window.Definitions = Definitions;
+// window.Store = Store;
 
 const store = new DataStore();
 
@@ -11,32 +16,18 @@ const adapter = new HttpAdapter({
 
 store.registerAdapter("http", adapter, { default: true });
 
-window.user = store.defineMapper("user", {
-  relations: {
-    belongsTo: {
-      organization: {
-        foreignKey: "organizationId",
-        localField: "organization"
-      }
-    }
+// Object.keys(Store._mappers).forEach(mapperName => {
+//   store.defineMapper(mapperName, Store._mappers[mapperName])
+// })
+
+store.defineMapper('user', {
+  setThisUser(user) {
+    this.thisUser = user
   }
 });
-window.posts = store.defineMapper("post", {});
-window.organization = store.defineMapper("organization", {
-  relations: {
-    hasMany: {
-      user: {
-        foreignKey: "organizationId",
-        localField: "users"
-      }
-    }
-  }
-});
-window.region = store.defineMapper("region");
 
 window.store = store;
 
-// create
 function runTest() {
   store
     .create("user", { name: "John" })
@@ -99,9 +90,9 @@ function runTest() {
     .catch(err => {
       console.log(
         `
-        
+
         ERROR final catch
-    
+
     `,
         err
       );
