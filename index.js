@@ -3,11 +3,11 @@ import { DataStore } from "js-data";
 // import { HttpAdapter } from "js-data-http";
 // import {HttpAdapter} from '../../js-data-http/src/index'
 // import { Definitions, Store } from '@therms/models';
-import LocalStorageAdapter from 'js-data-localstorage'
+import {LocalStorageAdapter} from 'js-data-localstorage'
 
-window.Store = Store;
 
 const store = new DataStore();
+window.Store = store;
 
 const adapter = new LocalStorageAdapter();
 // const adapter = new HttpAdapter({
@@ -18,11 +18,15 @@ store.registerAdapter('localstorage', adapter, { default: true });
 // store.registerAdapter("http", adapter, { default: true });
 
 
-store.defineMapper('user', {
+store.defineMapper('user', {});
 
-});
+/*****************************/
 
-window.store = store;
+window.User = Store.as('user');
+
+
+
+/*****************************/
 
 function runTest() {
   store
@@ -94,5 +98,4 @@ function runTest() {
       );
     });
 }
-
 window.runTest = runTest;
