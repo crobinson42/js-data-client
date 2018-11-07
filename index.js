@@ -1,29 +1,25 @@
 import { DataStore } from "js-data";
 // import { DataStore } from "./js-data/src/";
-import { HttpAdapter } from "js-data-http";
+// import { HttpAdapter } from "js-data-http";
 // import {HttpAdapter} from '../../js-data-http/src/index'
 // import { Definitions, Store } from '@therms/models';
+import LocalStorageAdapter from 'js-data-localstorage'
 
-// window.Definitions = Definitions;
-// window.Store = Store;
+window.Store = Store;
 
 const store = new DataStore();
 
-const adapter = new HttpAdapter({
-  // node.js dev server
-  basePath: "http://localhost:3000"
-});
+const adapter = new LocalStorageAdapter();
+// const adapter = new HttpAdapter({
+//   basePath: "http://localhost:3000"
+// });
 
-store.registerAdapter("http", adapter, { default: true });
+store.registerAdapter('localstorage', adapter, { default: true });
+// store.registerAdapter("http", adapter, { default: true });
 
-// Object.keys(Store._mappers).forEach(mapperName => {
-//   store.defineMapper(mapperName, Store._mappers[mapperName])
-// })
 
 store.defineMapper('user', {
-  setThisUser(user) {
-    this.thisUser = user
-  }
+
 });
 
 window.store = store;
